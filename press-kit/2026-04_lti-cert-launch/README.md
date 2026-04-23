@@ -23,10 +23,13 @@ press-kit/2026-04_lti-cert-launch/
 │   ├── day-3-{linkedin,square,reel}.png   Curriculum Wizard — Custom Builder
 │   ├── day-4-{linkedin,square,reel}.png   Curriculum Wizard — One-click LMS launch
 │   └── day-5-{linkedin,square,reel}.png   Curriculum Wizard — Automatic grade passback
-├── video/                                 walkthrough, 3 aspect ratios, ~27s each
-│   ├── wizard-walkthrough-landscape.mp4   1440×900   (LinkedIn / Facebook video)
-│   ├── wizard-walkthrough-square.mp4      1080×1080  (Facebook square / IG feed)
-│   └── wizard-walkthrough-reel.mp4        1080×1920  (Instagram Reels / Stories / TikTok)
+├── video/                                 walkthroughs, 3 aspect ratios each
+│   ├── launch-flow-landscape.mp4          1920×1080 — END-TO-END LTI LAUNCH (~43s)
+│   ├── launch-flow-square.mp4             1080×1080 — same flow, square + brand chrome
+│   ├── launch-flow-reel.mp4               1080×1920 — same flow, Reels-native
+│   ├── wizard-walkthrough-landscape.mp4   1440×900  — Wizard alone, ~27s
+│   ├── wizard-walkthrough-square.mp4      1080×1080 — Wizard alone, square
+│   └── wizard-walkthrough-reel.mp4        1080×1920 — Wizard alone, Reels-native
 └── raw-screenshots/                       un-framed Wizard screenshots
     ├── 01-preset-library.png
     ├── 02-filtered-library.png            (filters live: Signing Naturally + Memory Match)
@@ -50,9 +53,18 @@ The 1EdTech badge itself lives in the repo root:
   block on partner pages.
 - **Press / coverage.** The raw screenshots are intentionally
   un-framed for editorial layouts. The framed cards are post-ready.
-- **Reels / Shorts / TikTok.** The 1080×1920 reel video and per-day
+- **Reels / Shorts / TikTok.** The 1080×1920 reel videos and per-day
   reel cards are vertical-native and work across Instagram Reels,
   Facebook Reels, TikTok, and YouTube Shorts.
+- **End-to-end LTI launch demo (`launch-flow-*.mp4`).** A ~43-second
+  marketing video that walks through a real LTI launch in seven beats:
+  opener → teacher launches the Wizard from inside their LMS → preset
+  pick / configure / Add to Course → student opens the assignment →
+  Memory Match game plays through → AGS 2.0 returns the score to the
+  gradebook → cert close card. Each beat carries an explicit on-screen
+  caption ("Step N — …") so the video reads with sound off. Pair with
+  the Day 4 (LMS launch) and Day 5 (grade passback) campaign posts,
+  or use as a single all-platform asset on its own.
 
 ---
 
