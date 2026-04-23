@@ -90,6 +90,20 @@ use uppercase tracked-out (`letter-spacing: .22em`).
 - **Compatible LMS platforms (out of the box):** Canvas, Blackboard,
   D2L Brightspace, Moodle, and any LTI 1.3-compliant LMS
 
+## Product claims worth quoting
+
+- **LTI Advantage Complete certified** — the highest LTI certification
+  level available to learning tools.
+- **Curriculum-aligned** out of the box to Signing Naturally, Master
+  ASL!, True Way ASL, Bravo Family Signs, and TWA+.
+- **2,500+ sign vocabulary library, demonstrated by a team of Deaf
+  signers** — not a single model on repeat. Different signers across
+  the library so students see the regional, stylistic, and
+  generational variety that ASL actually lives with in the world.
+- **One-click LMS deployment** via LTI Deep Linking 2.0; automatic
+  grade passback via Assignment & Grade Services 2.0; roster-aware
+  rendering via Names & Role Provisioning Services 2.0.
+
 ---
 
 ## Questions / coverage requests
