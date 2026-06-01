@@ -1,9 +1,0 @@
-pattern: s3-static-deploy
-
-target:
-  target_bucket: playwithasl-public-assets
-  cloudfront_distribution_id: ""
-
-config:
-  build_command: ""
-  build_output_dir: .
