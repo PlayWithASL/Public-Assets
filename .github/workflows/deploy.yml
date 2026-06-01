@@ -43,6 +43,18 @@ jobs:
           PATTERN=$(grep '^pattern:' deploy.ssm.yml | awk '{print $2}')
           echo "pattern=$PATTERN" >> "$GITHUB_OUTPUT"
 
+          # Extract pattern-specific target params
+          TARGET_BUCKET=$(grep 'target_bucket:' deploy.ssm.yml | awk '{print $2}' || true)
+          CF_DIST=$(grep 'cloudfront_distribution_id:' deploy.ssm.yml | awk '{print $2}' | tr -d '"' || true)
+          CORPUS_BUCKET=$(grep 'corpus_bucket:' deploy.ssm.yml | awk '{print $2}' || true)
+          KB_ID=$(grep 'knowledge_base_id:' deploy.ssm.yml | awk '{print $2}' || true)
+          DS_ID=$(grep 'data_source_id:' deploy.ssm.yml | awk '{print $2}' || true)
+          echo "target_bucket=${TARGET_BUCKET}" >> "$GITHUB_OUTPUT"
+          echo "cf_dist=${CF_DIST}" >> "$GITHUB_OUTPUT"
+          echo "corpus_bucket=${CORPUS_BUCKET}" >> "$GITHUB_OUTPUT"
+          echo "kb_id=${KB_ID}" >> "$GITHUB_OUTPUT"
+          echo "ds_id=${DS_ID}" >> "$GITHUB_OUTPUT"
+
       - name: Configure AWS credentials (OIDC)
         if: steps.config.outputs.skip != 'true'
         uses: aws-actions/configure-aws-credentials@v4
@@ -83,15 +95,27 @@ jobs:
           PATTERN="${{ steps.config.outputs.pattern }}"
           ACTION="${{ github.event.inputs.action || 'deploy' }}"
 
+          # Build base parameters
+          PARAMS="{\"Repo\":[\"${REPO_NAME}\"],\"CommitSha\":[\"${commit_sha}\"],\"Environment\":[\"production\"],\"AutomationAssumeRole\":[\"${{ secrets.AWS_SSM_AUTOMATION_ROLE_ARN }}\"]"
+
+          # Add pattern-specific parameters
+          if [ "$PATTERN" = "s3-static-deploy" ]; then
+            PARAMS="${PARAMS},\"TargetBucket\":[\"${{ steps.config.outputs.target_bucket }}\"]"
+            CF_DIST="${{ steps.config.outputs.cf_dist }}"
+            if [ -n "$CF_DIST" ]; then
+              PARAMS="${PARAMS},\"CloudFrontDistributionId\":[\"${CF_DIST}\"]"
+            fi
+          elif [ "$PATTERN" = "s3-corpus-deploy" ]; then
+            PARAMS="${PARAMS},\"CorpusBucket\":[\"${{ steps.config.outputs.corpus_bucket }}\"]"
+            PARAMS="${PARAMS},\"KnowledgeBaseId\":[\"${{ steps.config.outputs.kb_id }}\"]"
+            PARAMS="${PARAMS},\"DataSourceId\":[\"${{ steps.config.outputs.ds_id }}\"]"
+          fi
+
+          PARAMS="${PARAMS}}"
+
           EXECUTION_ID=$(aws ssm start-automation-execution \
             --document-name "playwithasl-${PATTERN}" \
-            --parameters "{
-              \"Repo\": [\"${REPO_NAME}\"],
-              \"CommitSha\": [\"${commit_sha}\"],
-              \"Action\": [\"${ACTION}\"],
-              \"Environment\": [\"production\"],
-              \"AutomationAssumeRole\": [\"${{ secrets.AWS_SSM_AUTOMATION_ROLE_ARN }}\"]
-            }" \
+            --parameters "$PARAMS" \
             --query 'AutomationExecutionId' \
             --output text)
 
