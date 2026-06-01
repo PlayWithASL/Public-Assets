@@ -89,7 +89,8 @@ jobs:
               \"Repo\": [\"${REPO_NAME}\"],
               \"CommitSha\": [\"${commit_sha}\"],
               \"Action\": [\"${ACTION}\"],
-              \"Environment\": [\"production\"]
+              \"Environment\": [\"production\"],
+              \"AutomationAssumeRole\": [\"${{ secrets.AWS_SSM_AUTOMATION_ROLE_ARN }}\"]
             }" \
             --query 'AutomationExecutionId' \
             --output text)
